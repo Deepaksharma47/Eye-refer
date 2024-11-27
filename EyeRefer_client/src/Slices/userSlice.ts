@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const intilaState = {
-    user_type:localStorage.getItem("user_type") ? JSON.parse(localStorage.getItem("user_type") as string): null,
-    token:localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token") as string) :null,
-    user:localStorage.getItem("user") ? JSON.parse(localStorage.getItem("us") as string) : null
+    user_type:sessionStorage.getItem("user_type") ? JSON.parse(sessionStorage.getItem("user_type") as string): null,
+    token:sessionStorage.getItem("token") ? JSON.parse(sessionStorage.getItem("token") as string) :null,
+    user:sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("us") as string) : null,
+    isLoading:false,
 }
 
 const userSlice = createSlice({
@@ -13,17 +14,17 @@ const userSlice = createSlice({
     reducers:{
         setDoctorType:(state,value) =>{
             state.user_type = value.payload;
-            localStorage.setItem("user_type", JSON.stringify(value.payload))
+            sessionStorage.setItem("user_type", JSON.stringify(value.payload))
 
         },
         setToken:(state,value) =>{
             state.token = value.payload;
-            localStorage.setItem("token", JSON.stringify(value.payload))
+            sessionStorage.setItem("token", JSON.stringify(value.payload))
 
         },
-        setUser:(state,value) =>{
+        setDoctor:(state,value) =>{
             state.user = value.payload
-            localStorage.setItem("user", JSON.stringify(value.payload))
+            sessionStorage.setItem("user", JSON.stringify(value.payload))
 
         },
         logout:(state) => {
@@ -32,10 +33,13 @@ const userSlice = createSlice({
             state.user = null;
             localStorage.clear(); 
             sessionStorage.clear();
+        },
+        setLoading:(state,value) =>{
+            state.isLoading = value.payload;
         }
     }
 })
 
-export const {setToken,setDoctorType,logout,setUser} = userSlice.actions;
+export const {setToken,setDoctorType,logout,setDoctor,setLoading} = userSlice.actions;
 
 export default userSlice.reducer;

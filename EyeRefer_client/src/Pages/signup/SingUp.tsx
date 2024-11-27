@@ -1,41 +1,23 @@
 import React from "react";
 import { Formik ,Form } from "formik";
-import { useMutation } from "@tanstack/react-query";
 import { signUpValidationSchema } from "../../validations/signValidation";
 import IconBtn from "../../components/common/IconBtn";
-import { signupInterface } from "../../interfaces/iconButtonInterface";
-import { apiConnector } from "../../services/apiConnector";
-import { toast } from "react-toastify";
+import { signupInterface } from "../../interfaces/interfaces";
 import InputFeild from "../../components/common/InputFeild";
 import { useNavigate } from "react-router-dom";
+import { useSingUp } from "../../actions/user";
 
 const SingUp:React.FC = () => {
     const navigate  = useNavigate();
     // const baseUrl = import.meta.env.VITE_API_URL
-    const { mutate } = useMutation({
-        mutationKey: ["signup"],
-        mutationFn: async (data: signupInterface) => {
-            await apiConnector<signupInterface,{success:boolean}>({
-                method:"post",
-                url:"/singup",
-                bodyData:data,
-                })
-        },
-        onError:()=>{
-            console.log("error")
-        },
-        onSuccess:()=>{
-            toast.success("User created")
-            
-        }
-    })
+    const signUpMutataion = useSingUp();
 
     const doctorTypeOptions = [{value:"OD",label:"OD"},{value:"MD",label:"MD"}]
 
     return (
         <div className=" text-center w-[100%] p-10">
-            <div className=" text-textColor font-sans font-semibold text-4xl mb-8">Sign Up</div>
-            <div className=" border-2 p-9 rounded-md bg-white flex flex-col gap-3 ">
+            <div className=" text-textColor font-sans font-medium text-3xl mb-8">Sign Up</div>
+            <div className=" border  p-8 rounded-md bg-white flex flex-col gap-3 ">
             <Formik
                 initialValues={{
                 fname: "",
@@ -49,7 +31,7 @@ const SingUp:React.FC = () => {
             onSubmit={async(values: signupInterface) => {
                 console.log("dsdsdsdsdds")
                 console.log("valuesvalues",values);
-                mutate(values);
+                await  signUpMutataion.mutate(values);
             }}
         >
             {( ) => (
@@ -84,7 +66,7 @@ const SingUp:React.FC = () => {
                         />
                 </div>
 
-                <div className="text-lg text-gray-500 my-2  ">
+                <div className="text-sm text-gray-500 my-2  ">
                 Already an existing user? <span>{" "}</span> 
                 <button type="button" className=" text-teritory font-bold   " onClick={()=>{
                     navigate("/login")

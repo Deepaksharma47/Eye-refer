@@ -10,6 +10,7 @@ export default {
         customBlue: '#5BE4EC',
         customGreen: '#43D79E',
         teritory: '#35C0E4',
+        teritoryDark: '#33adff',
         textColor:"#1C1C1C",
         backGround:"#ECF1F3",
         formBackground:"#f2f2f2",

@@ -6,7 +6,8 @@ import Patient from "./Patient";
 
 class Doctor extends Model{
   public id!: number;
-  public name!: string;
+  public fname!: string;
+  public lname!: string;
   public doctorType!: "OD" | "MD";
   public email!: string;
   public active!: boolean;
@@ -24,7 +25,11 @@ class Doctor extends Model{
         primaryKey: true,
         allowNull: false,
       },
-      name: {
+      fname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lname: {
         type: DataTypes.STRING,
         allowNull: false,
       },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { iconBtn } from '../../interfaces/iconButtonInterface'
+import { iconBtn } from '../../interfaces/interfaces'
 
 const IconBtn:React.FC<iconBtn> = ({
     text,
@@ -17,9 +17,9 @@ const IconBtn:React.FC<iconBtn> = ({
     disabled={disabled}
     onClick={onClick}
     type={type}
-    className={`flex items-center justify-center ${
+    className={`flex items-center justify-center text-base  ${
           outline ? "border border-customGreen bg-transparent" : `${customClasses ? `${customClasses}`:" bg-yellow-300"}`
-        } cursor-pointer gap-x-2 rounded-md py-3 px-5 font-semibold ${customClasses}`}
+        } cursor-pointer gap-x-2 rounded-md py-2 px-5 font-semibold hover:bg-teritoryDark  ${customClasses}`}
     >
         {
             children ? (<div className='flex items-center justify-center gap-2'>

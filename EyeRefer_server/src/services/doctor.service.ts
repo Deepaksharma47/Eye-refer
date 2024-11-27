@@ -10,7 +10,7 @@ import bcrypt from "bcrypt"
 import tokenService from "./token.service";
 
 const doctorSignUp = async (req:Request):Promise<ReturnResult> =>{
-    let {name , email, doctorType, password, active = false} = req.body;
+    let {fname, lname , email, doctorType, password, active = false} = req.body;
 
     // check user if it is exits or not
     const existDoctor = await  db.Doctor.findOne({
@@ -27,7 +27,7 @@ const doctorSignUp = async (req:Request):Promise<ReturnResult> =>{
         throw new AppError(constantValues.msg.alreadyExist,constantValues.msgCode.conflictCode);
     }
     else{
-        newDoctor = await db.Doctor.create({name,email,doctorType,password});
+        newDoctor = await db.Doctor.create({fname,lname,email,doctorType,password});
         const otp = generateOTP()
         await db.Otp.create({email,otp});
 
@@ -57,7 +57,7 @@ const doctorLogin = async (req:Request):Promise<ReturnResult> =>{
         throw new AppError(constantValues.msg.incorrectPassword,constantValues.msgCode.badRequest)
     }
 
-    const token = await tokenService.generateToken({id:doctor?.id,name:doctor?.name,email:doctor?.email,doctorType:doctor?.doctorType})
+    const token = await tokenService.generateToken({id:doctor?.id,name:`${doctor?.fname} ${doctor?.lname}`,email:doctor?.email,doctorType:doctor?.doctorType})
 
     const result : ReturnResult =  {
         success:constantValues.msgType.successStatus,

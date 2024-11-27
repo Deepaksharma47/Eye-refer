@@ -17,3 +17,13 @@ export interface signupInterface{
     password: string;
     confirmPassword: string;
 }
+
+export interface  loginInterface{
+    email:string;
+    password:string;
+}
+
+export interface otpInterface{
+    email:string,
+    otp:string;
+}
